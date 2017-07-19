@@ -1,0 +1,4 @@
+export const OPEN_DIALOG = 'OPEN_DIALOG'
+export const CLOSE_DIALOG = 'CLOSE_DIALOG'
+export const ADD_PRODUCT = 'ADD_PRODUCT '
+export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
