@@ -7,109 +7,92 @@ import Vue from 'vue';
 import axios from 'axios';
 
 export default {
-    props: ['h'],
+    props: ['layer'],
     data:() => ({
       center: [115.869, -31.955], // starting position Perth
-      classMap : {width: "100%",height: '100%'}
+      classMap : {width: "100%",height: 'calc(100vh - 110px)'},
+      geojson: [{
+        type: "FeatureCollection",
+        features: []
+      }],
+      map: undefined
     }),
-    computed: {
-      getStyles(){
-        _this = this
-        // CORS HEADER
-        var config = {
-          headers: [{'Access-Control-Allow-Origin': '*'},
-                    {'Content-Type': 'application/json'}]
-        };
+    methods: {
+      addProductLayer(newLayer){
+        // Add a layer showing the places.
+        this.map.addSource(`${newLayer}`, {
+        "type": "geojson",
+        "data": `http://localhost:3001/map/data/perth/${newLayer}.geojson`
+        });
+        //Text
+        this.map.addLayer({
+          "id": `${newLayer}`,
+          "type": "symbol",
+          "source": `${newLayer}`,
+          "layout": {
+            "text-field": "{title}",
+            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            "text-offset": [0, 0.6],
+            "text-anchor": "top"
+          }
+        });
+        //Points
+        this.map.addLayer({
+          "id": `${newLayer}2`,
+          "type": "circle",
+          "source": `${newLayer}`,
+          "paint": {
+            "circle-color": "#3498db",
+            "circle-radius": 10,
+            "circle-opacity": 0.8
+          }
+        });
 
-        axios.get(`http://localhost:3001/map/styles/style.json`, config)
-        .then(response => {
-          // JSON responses are automatically parsed.
-          return response.data
-        })
-        .catch(e => {
-          console.log("Ooppss.."+e)
-          return ''
-        })
+        // When a click event occurs on a feature in the places layer, open a popup at the
+        // location of the feature, with description HTML from its properties.
+      /*  this.map.on('click',`${newLayer}`, `${newLayer}`, function (e) {
+            console.log(`click: ${newLayer}`)
+            console.log(e.features[0])
+            new mapboxgl.Popup()
+                .setLngLat(e.features[0].geometry.coordinates)
+                .setHTML(`<h2>${e.features[0].properties.title}</h2><h3>${e.features[0].properties.description}</h3>`)
+                .addTo(map);
+        }); */
       }
     },
-    beforeCreate(){
-      //Geolocate
-      if (navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(position => {
-           console.log('Console log:'+position.coords.longitude+ ' '+position.coords.latitude)
-           this.center = [ position.coords.longitude, position.coords.latitude]
-         })
+    watch: {
+      // whenever layer changes, this function will run
+      layer: function (newLayer, oldLayer) {
+        console.log('Layer changed:'+newLayer+ ' old layer:'+oldLayer)
+        if(oldLayer !== 'default'){
+          //Remove clic event
+          //this.map.off('clic',oldLayer,oldLayer)
+          //Remove old layer
+          this.map.removeLayer(oldLayer)
+          this.map.removeLayer(`${oldLayer}2`)
+          this.map.removeSource(oldLayer)
+        }
+        this.addProductLayer(newLayer)
       }
     },
     mounted: function(){
       mapboxgl.accessToken = 'pk.eyJ1IjoiY2FwY2FyZGUiLCJhIjoiY2o0enFia3plMDdlNTJxbzlvcHgya2MwMSJ9._y_g1C2D1ZuK2JIXTOw4Pg'
-      var map = new mapboxgl.Map({
+      this.map = new mapboxgl.Map({
           container: 'map', // container id
-          //style: this.getStyles,
-          //style: 'mapbox://styles/capcarde/cj5ap9i7m72rx2rqn6yf2wjnp',
           style: 'mapbox://styles/mapbox/light-v8', //stylesheet location
           center: this.center,
           zoom: 13 // starting zoom
       });
-
-      map.on('load', function () {
-        // Add Images
-        /*
-        map.loadImage(pin, (error, image) =>{
-          if (error) throw error;
-          map.addImage('pin', pin)
-        });*/
+      this.map.on('load', () => {
         // Add a layer showing the places.
-        map.addSource("points", {
-        "type": "geojson",
-        "data": "http://localhost:3001/map/data/perth/arepa.geojson"
-        });
-
-        map.addLayer({
-          "id": "markers",
-          "type": "symbol",
-          "source": "points",
-          "layout": {
-            "icon-image": "pin",
-            "icon-size": 0.25,
-            "text-field": "{title}",
-            "text-color": "red",
-            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-            "text-offset": [0, 0.6],
-            "text-anchor": "top"
-          },
-      });
-
-      // When a click event occurs on a feature in the places layer, open a popup at the
-      // location of the feature, with description HTML from its properties.
-      map.on('click', 'markers', function (e) {
-          console.log(e.features[0])
-          new mapboxgl.Popup()
-              .setLngLat(e.features[0].geometry.coordinates)
-              .setHTML(`<h2>${e.features[0].properties.title}</h2><h3>${e.features[0].properties.description}</h3>`)
-              .addTo(map);
-      });
-
-      // Change the cursor to a pointer when the mouse is over the places layer.
-      map.on('mouseenter', 'markers', function () {
-          map.getCanvas().style.cursor = 'pointer';
-      });
-
-      // Change it back to a pointer when it leaves.
-      map.on('mouseleave', 'markers', function () {
-          map.getCanvas().style.cursor = '';
-      });
+        if(this.layer !== 'default'){
+          this.addProductLayer(this.layer);
+        }
     });
-
-    },
-    methods: {
-
-    }
+  }
 }
 </script>
 
 <style>
-#map{
 
-}
 </style>

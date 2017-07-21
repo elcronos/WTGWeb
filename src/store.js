@@ -7,7 +7,8 @@ Vue.use(Vuex)
 // each Vuex instance is just a single state tree.
 const state = {
   visibleDialog: false,
-  products: []
+  products: [],
+  layer: 'default'
 }
 
 // mutations are operations that actually mutates the state.
@@ -30,6 +31,9 @@ const mutations = {
   },
   clearProducts (state){
     state.products = []
+  },
+  setLayerProduct (state, layer){
+    state.layer = layer
   }
 }
 
@@ -40,13 +44,15 @@ const actions = {
   closeDialog: ({ commit }) => commit('closeDialog'),
   addProduct: ({ commit } , product) => commit('addProduct', product),
   removeProduct: ({ commit } , product) => commit('removeProduct', product),
-  clearProducts: ({ commit }) => commit('clearProducts')
+  clearProducts: ({ commit }) => commit('clearProducts'),
+  setLayerProduct: ({ commit }, layer) => commit('setLayerProduct', layer)
 }
 
 // getters are functions
 const getters = {
   dialog: state => state.visibleDialog,
-  selectedProducts: state => state.products
+  selectedProducts: state => state.products,
+  layer: state => state.layer
 }
 
 // A Vuex instance is created by combining the state, mutations, actions,

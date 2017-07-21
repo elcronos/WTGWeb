@@ -4,7 +4,7 @@
     :before-close="handleClose"
     :visible.sync="isVisible">
         <div class="action-bar">
-          <el-button @click="search" :disabled="disabled" type="primary">Search</el-button>
+          <el-button @click="search(checkedProducts)" :disabled="disabled" type="primary">Search</el-button>
           <el-button @click="selectAll" type="primary">Select All</el-button>
           <el-button @click="clearAll" :disabled="disabled" type="primary">Clear All</el-button>
         </div>
@@ -23,7 +23,7 @@
                 <input type="checkbox" :id="p.id" :value="p" v-model="checkedProducts"/>
                 <label :for="p.id">{{ p.name }}</label>
               </td>
-              <td class="table-item"><img :src="`http://localhost:3001/products/${p.countryId}/${p.image}`"/></td>
+              <td class="table-item"><img :src="`http://localhost:3001/products/${p.countryId}/${p.file}.png`"/></td>
               <td class="table-item">{{ p.country.name }}</td>
             </tr>
           </tbody>
@@ -60,7 +60,8 @@
         },
         methods: {
           ...mapActions([
-            'closeDialog'
+            'closeDialog',
+            'setLayerProduct'
           ]),
           handleClose(){
             this.checkedProducts = []
@@ -75,18 +76,11 @@
             this.checkedProducts = []
             this.data.forEach( p => { this.checkedProducts.push(p)})
           },
-          search(){
+          search(products){
             console.log('Search')
+            this.closeDialog()
+            this.setLayerProduct(products[0].file)
           }
-          /*
-          handleChange(p){
-            let alreadyAdded= this.selectedProducts.filter(pr => pr.id === p.id).length > 0 ? true : false
-            if(alreadyAdded){
-              this.removeProduct(p)
-            }else{
-              this.addProduct(p)
-            }
-          }*/
         }
     }
 </script>

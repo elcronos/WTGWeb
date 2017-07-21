@@ -48,7 +48,7 @@ export default {
           // JSON responses are automatically parsed.
           _this.products = response.data
           _this.openDialog()
-          console.log(JSON.stringify(_this.products))
+          //console.log(JSON.stringify(_this.products))
         })
         .catch(e => {
           console.log("Ooppss.."+e)
@@ -59,7 +59,7 @@ export default {
           // JSON responses are automatically parsed.
           _this.products = response.data
           _this.openDialog()
-          console.log(JSON.stringify(_this.products))
+          //console.log(JSON.stringify(_this.products))
         })
         .catch(e => {
           console.log("Ooppss.."+e)
@@ -76,7 +76,7 @@ export default {
 <style scoped>
 .sidemenu{
   width: 30%;
-  height: 87vh;
+  height: calc(100vh - 110px);
 }
 .el-select .el-input {
     width: 5rem;
