@@ -19,6 +19,7 @@ export default {
     }),
     methods: {
       addProductLayer(newLayer){
+        var _this = this
         // Add a layer showing the places.
         this.map.addSource(`${newLayer}`, {
         "type": "geojson",
@@ -48,16 +49,38 @@ export default {
           }
         });
 
+        // Change the cursor to a pointer when the mouse is over the states layer.
+        /* this.map.on('mouseenter', `${newLayer}`, `${newLayer}`, () =>  {
+             this.map.getCanvas().style.cursor = 'pointer';
+         });
+
+         // Change it back to a pointer when it leaves.
+         this.map.on('mouseleave', `${newLayer}`, `${newLayer}`,  () =>  {
+             this.map.getCanvas().style.cursor = '';
+         });
+         */
         // When a click event occurs on a feature in the places layer, open a popup at the
         // location of the feature, with description HTML from its properties.
-      /*  this.map.on('click',`${newLayer}`, `${newLayer}`, function (e) {
-            console.log(`click: ${newLayer}`)
-            console.log(e.features[0])
-            new mapboxgl.Popup()
+        /*this.map.on('click', `${newLayer}`, function (e) {
+            //console.log('Click...'+e)
+            var features = _this.map.queryRenderedFeatures(e.point, { layers: [`${newLayer}`] });
+            if (!features.length) {
+              return;
+            }
+            var feature = features[0];
+            var popup = new mapboxgl.Popup()
+              .setLngLat(feature.geometry.coordinates)
+              .setHTML(feature.properties.description)
+              .addTo(map);
+
+            //alert(`${e.features[0].properties.title}`)
+            /*new mapboxgl.Popup()
                 .setLngLat(e.features[0].geometry.coordinates)
                 .setHTML(`<h2>${e.features[0].properties.title}</h2><h3>${e.features[0].properties.description}</h3>`)
                 .addTo(map);
-        }); */
+
+
+        });*/
       }
     },
     watch: {
@@ -66,7 +89,9 @@ export default {
         console.log('Layer changed:'+newLayer+ ' old layer:'+oldLayer)
         if(oldLayer !== 'default'){
           //Remove clic event
-          //this.map.off('clic',oldLayer,oldLayer)
+          this.map.off('clic', oldLayer, oldLayer)
+          //this.map.off('mouseenter', oldLayer,oldLayer)
+          //this.map.off('mouseleave', oldLayer,oldLayer)
           //Remove old layer
           this.map.removeLayer(oldLayer)
           this.map.removeLayer(`${oldLayer}2`)
