@@ -63,18 +63,18 @@ h4{
   color: #506DDA;
 }
 .scrollable{
-  max-height: calc(100vh - 190px);
+  max-height: calc(100vh - 360px);
   display: block;
   overflow: scroll;
 }
 
 .result-container{
-  top: 10rem;
+  top: 12rem;
   z-index: 1;
   position: absolute;
   background-color: transparent;
   width: 25rem;
-  height: calc(100vh - 110px);
+  height: calc(100vh - 360px);
 }
 .result-container.hidden{
   width: 0;
@@ -101,7 +101,8 @@ h4{
 .result-container .body .result{
   display: flex;
   background-color: #fff;
-  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
   flex-direction: column;
   margin: 1rem;
   border-radius: 0.75rem;

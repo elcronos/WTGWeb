@@ -10,7 +10,7 @@ export default {
     props: ['layer'],
     data:() => ({
       center: [115.869, -31.955], // starting position Perth
-      classMap : {width: "100%",height: 'calc(100vh - 110px)'},
+      classMap : {width: "100%",height: 'calc(100vh - 210px)'},
       geojson: [{
         type: "FeatureCollection",
         features: []

@@ -5,10 +5,11 @@ import './style.css'
 import App from './App.vue'
 import store from './store'
 import vuexI18n from 'vuex-i18n'
+import MyMain from './components/pages/MyMain.vue'
+import router from './router/index.js'
 
 Vue.use(ElementUI)
 Vue.use(vuexI18n.plugin, store)
-
 
 const translationsEn = {
   "menu.title" : "Products",
@@ -47,6 +48,7 @@ Vue.i18n.set('es')
 
 new Vue({
   el: '#app',
+  router,
   store, // inject store to all children
   render: h => h(App)
 })

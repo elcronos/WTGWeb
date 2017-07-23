@@ -1,19 +1,21 @@
 <template>
   <div id="app">
-    <MyMain></MyMain>
+    <MyHeader></MyHeader>
+    <router-view></router-view>
+    <MyFooter></MyFooter>
   </div>
 </template>
-
 <script>
-import MyMain from './components/pages/MyMain.vue'
-
+import MyHeader from './components/ui/MyHeader.vue'
+import MyFooter from './components/ui/MyFooter.vue'
 export default {
   data () {
     return {
     }
   },
   components: {
-    MyMain
+    MyHeader,
+    MyFooter
   },
   methods: {
 
@@ -29,5 +31,6 @@ export default {
 body {
   font-family: Roboto;
   margin: 0;
+  background-color: #fbfbfb;
 }
 </style>

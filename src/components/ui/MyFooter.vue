@@ -1,7 +1,7 @@
 <template>
   <div class="my-footer">
-    <div class="logo">Footer</div>
-    <div class="title">{{ title }}</div>
+    <div class="logo">Camilo Pestana <span class="copyright">©</span>2017</div>
+    <div class="share"></div>
   </div>
 </template>
 
@@ -9,7 +9,6 @@
 import axios from 'axios';
 export default {
   data: () => ({
-    title: 'Footer'
   }),
   created() {
 
@@ -22,11 +21,14 @@ export default {
 
 <style>
 .my-footer{
-  font-family: "Hiragino Sans GB";
+  font-family: Roboto;
   padding: 1rem 1rem 1rem 1rem;
   background-color: #506DDA;
   color: #fff;
   display: flex;
   justify-content: space-between;
+}
+.copyright{
+  font-size: 1rem;
 }
 </style>
