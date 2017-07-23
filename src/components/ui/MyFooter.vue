@@ -24,7 +24,7 @@ export default {
 .my-footer{
   font-family: "Hiragino Sans GB";
   padding: 1rem 1rem 1rem 1rem;
-  background-color: #324157;
+  background-color: #506DDA;
   color: #fff;
   display: flex;
   justify-content: space-between;

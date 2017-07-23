@@ -22,8 +22,12 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: Roboto;
+  src: url('assets/fonts/Roboto-Regular.ttf');
+}
 body {
-  font-family: Helvetica, sans-serif;
+  font-family: Roboto;
   margin: 0;
 }
 </style>

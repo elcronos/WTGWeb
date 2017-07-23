@@ -35,13 +35,13 @@
     import { mapGetters, mapActions } from 'vuex'
     import axios from 'axios'
     export default {
-        props : ['data'],
         data: () => ({
           checkedProducts : []
         }),
         computed: {
           ...mapGetters({
-            isVisible : 'dialog'
+            isVisible : 'dialog',
+            data: 'data'
           }),
           message(){
             if(this.checkedProducts.length > 0){
@@ -143,7 +143,7 @@ tr:hover{
   background-color: #eef1f6;
 }
 img {
-  max-width:4rem;
+  max-width:2rem;
   max-height:7rem;
   width: auto;
   height: auto;

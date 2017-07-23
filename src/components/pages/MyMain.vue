@@ -1,12 +1,13 @@
 <template>
-  <div>
+  <div class="body">
     <MyHeader></MyHeader>
+    <Searcher></Searcher>
+    <Products></Products>
     <div class="content">
-      <Menu></Menu>
+      <Results></Results>
       <div class="map-container">
         <Mapbox :layer="layerProduct"></Mapbox>
       </div>
-      <Results></Results>
     </div>
     <MyFooter></MyFooter>
   </div>
@@ -14,12 +15,12 @@
 
 <script>
 import MyHeader from '../ui/MyHeader.vue'
-//import SideMenu from '../ui/SideMenu.vue'
-import Menu from '../ui/Menu.vue'
+import Products from '../ui/Products.vue'
+import Searcher from '../ui/Searcher.vue'
 import Results from '../ui/Results.vue'
 import Mapbox from '../ui/map/Mapbox.vue'
-import { mapGetters } from 'vuex'
 import MyFooter from '../ui/MyFooter.vue'
+import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
@@ -34,8 +35,8 @@ export default {
   },
   components: {
     MyHeader,
-    //SideMenu,
-    Menu,
+    Products,
+    Searcher,
     Mapbox,
     MyFooter,
     Results
@@ -44,6 +45,7 @@ export default {
 </script>
 
 <style>
+
 .content{
   display: flex;
 }

@@ -1,11 +1,11 @@
 <template>
   <div :class="styleContainer">
     <div class="header">
-      <div>
-        <h4>Where to get {{ this.resultProduct.product }}</h4>
-      </div>
       <div class="close" @click="handleClose">
         <img :src="iconCancel" width="1rem" height="1rem"/>
+      </div>
+      <div>
+        <h4>Where to get {{ this.resultProduct.product }}</h4>
       </div>
     </div>
     <div class="body">
@@ -58,6 +58,10 @@ export default {
 </script>
 
 <style>
+
+h4{
+  color: #506DDA;
+}
 .scrollable{
   max-height: calc(100vh - 190px);
   display: block;
@@ -65,35 +69,42 @@ export default {
 }
 
 .result-container{
-  background-color: #fff;
+  top: 10rem;
+  z-index: 1;
+  position: absolute;
+  background-color: transparent;
   width: 25rem;
   height: calc(100vh - 110px);
 }
 .result-container.hidden{
   width: 0;
+  display: none;
 }
 .result-container .header {
-  display: flex;
-  justify-content: space-around;
+  margin-left: 1rem;
   margin-top: 1rem;
 }
 
 .result-container .header .close{
-  width: 2rem;
-  height: 2rem
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .result-container .header img{
   max-width: 2rem;
   max-height: 2rem;
 }
-
+.result-container .body {
+  margin-top: -1rem;
+}
 .result-container .body .result{
   display: flex;
+  background-color: #fff;
+  padding: 0.5rem;
   flex-direction: column;
-  background-color: #eef1f6;
-  padding: 1rem;
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
+  margin: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 </style>

@@ -9,7 +9,8 @@ const state = {
   visibleDialog: false,
   products: [],
   layer: 'default',
-  result: {features:[], visible:false, product: ''}
+  result: {features:[], visible:false, product: ''},
+  data: []
 }
 
 // mutations are operations that actually mutates the state.
@@ -38,6 +39,9 @@ const mutations = {
   },
   setResult (state, result){
     state.result = result
+  },
+  setData (state, data){
+    state.data = data
   }
 }
 
@@ -50,7 +54,8 @@ const actions = {
   removeProduct: ({ commit } , product) => commit('removeProduct', product),
   clearProducts: ({ commit }) => commit('clearProducts'),
   setLayerProduct: ({ commit }, layer) => commit('setLayerProduct', layer),
-  setResult: ({ commit }, result) => commit('setResult', result)
+  setResult: ({ commit }, result) => commit('setResult', result),
+  setData: ({ commit }, data) => commit('setData', data)
 }
 
 // getters are functions
@@ -58,7 +63,8 @@ const getters = {
   dialog: state => state.visibleDialog,
   selectedProducts: state => state.products,
   layer: state => state.layer,
-  result: state => state.result
+  result: state => state.result,
+  data: state => state.data
 }
 
 // A Vuex instance is created by combining the state, mutations, actions,
