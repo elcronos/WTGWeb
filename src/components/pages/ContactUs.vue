@@ -7,6 +7,7 @@
       <input class="form-input" placeholder="Your Email"/>
       <input class="form-input" placeholder="Your Name"/>
       <textarea rows="6" type="textarea" class="form-input" placeholder="Message"/>
+      <a class="btn">SEND</a>
     </div>
   </div>
 </template>

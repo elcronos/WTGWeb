@@ -11,6 +11,7 @@
       <input class="form-input" placeholder="Name Place"/>
       <input class="form-input" placeholder="Address"/>
       <textarea rows="6" type="textarea" class="form-input" placeholder="What products can you get there?"/>
+      <a class="btn">SEND</a>
     </div>
   </div>
 </template>
@@ -46,7 +47,13 @@ export default {
  flex-direction: column;
  align-items: center;
 }
-
+.btn{
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 0.5rem 3rem 0.5rem 3rem;
+  border-radius: 2rem;
+  background-color: #506DDA;
+}
 textarea{
   font-size: 1rem !important;
   border: 0;
