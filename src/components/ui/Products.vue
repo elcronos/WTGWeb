@@ -4,17 +4,17 @@
     :before-close="handleClose"
     :visible.sync="isVisible">
         <div class="action-bar">
-          <el-button @click="search(checkedProducts)" :disabled="disabled" type="primary">Search</el-button>
-          <el-button @click="selectAll" type="primary">Select All</el-button>
-          <el-button @click="clearAll" :disabled="disabled" type="primary">Clear All</el-button>
+          <el-button @click="search(checkedProducts)" :disabled="disabled" type="primary">{{ $t('product.actionbar.search') }}</el-button>
+          <el-button @click="selectAll" type="primary">{{ $t('product.actionbar.searchall') }}</el-button>
+          <el-button @click="clearAll" :disabled="disabled" type="primary">{{ $t('product.actionbar.clearall') }}</el-button>
         </div>
         <table class="table">
           <col class="table-cols"/>
           <thead>
             <tr class="table-header">
-              <th class="table-item">PRODUCTS</th>
-              <th class="table-item">PREVIEW</th>
-              <th class="table-item">COUNTRY</th>
+              <th class="table-item">{{ $t('product.table.product') }}</th>
+              <th class="table-item">{{ $t('product.table.preview') }}</th>
+              <th class="table-item">{{ $t('product.table.country') }}</th>
             </tr>
           </thead>
           <tbody class="scrollable">
@@ -33,7 +33,7 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex'
-
+    import axios from 'axios'
     export default {
         props : ['data'],
         data: () => ({
@@ -61,7 +61,8 @@
         methods: {
           ...mapActions([
             'closeDialog',
-            'setLayerProduct'
+            'setLayerProduct',
+            'setResult'
           ]),
           handleClose(){
             this.checkedProducts = []
@@ -80,6 +81,20 @@
             console.log('Search')
             this.closeDialog()
             this.setLayerProduct(products[0].file)
+            var result = {features:[], visible:false, product: products[0].file}
+            // Set result
+            axios.get(`http://localhost:3001/map/data/perth/${products[0].file}.geojson`)
+            .then(response => {
+              let features = response.data.features.length
+              if(features > 0){
+                result.features = response.data.features
+                result.visible = true
+                this.setResult(result)
+              }
+            })
+            .catch(e => {
+              console.log('Error:'+e)
+            });
           }
         }
     }

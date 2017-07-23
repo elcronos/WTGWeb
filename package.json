@@ -16,7 +16,8 @@
     "vue": "^2.1.8",
     "vue-yandex-maps": "^0.1.0",
     "vue2-google-maps": "^0.7.9",
-    "vuex": "^2.3.1"
+    "vuex": "^2.3.1",
+    "vuex-i18n": "^1.4.3"
   },
   "engines": {
     "node": ">=6"

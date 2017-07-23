@@ -2,13 +2,11 @@
   <div>
     <MyHeader></MyHeader>
     <div class="content">
-      <SideMenu></SideMenu>
+      <Menu></Menu>
       <div class="map-container">
         <Mapbox :layer="layerProduct"></Mapbox>
-        <!--<yandex-map></yandex-map>-->
-        <!--<google-map name="example"></google-map>-->
-        <!--<MyMap></MyMap>-->
       </div>
+      <Results></Results>
     </div>
     <MyFooter></MyFooter>
   </div>
@@ -16,11 +14,10 @@
 
 <script>
 import MyHeader from '../ui/MyHeader.vue'
-import SideMenu from '../ui/SideMenu.vue'
+//import SideMenu from '../ui/SideMenu.vue'
+import Menu from '../ui/Menu.vue'
+import Results from '../ui/Results.vue'
 import Mapbox from '../ui/map/Mapbox.vue'
-//import GoogleMap from '../ui/GoogleMap.vue'
-//import YandexMap from '../ui/map/YandexMap.vue'
-//import MyMap from '../ui/MyMap.vue'
 import { mapGetters } from 'vuex'
 import MyFooter from '../ui/MyFooter.vue'
 export default {
@@ -33,20 +30,15 @@ export default {
     // whenever layer changes, this function will run
     layerProduct: function (newLayer) {
       console.log('Layer changed MyMain:'+newLayer)
-      /*var container = document.getElementById("map");
-      var content = container.innerHTML;
-      container.innerHTML= content;
-      */
     }
   },
   components: {
     MyHeader,
-    SideMenu,
+    //SideMenu,
+    Menu,
     Mapbox,
-    //YandexMap,
-    //GoogleMap,
-    //MyMap,
-    MyFooter
+    MyFooter,
+    Results
   }
 }
 </script>

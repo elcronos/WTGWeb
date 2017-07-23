@@ -18,6 +18,33 @@ export default {
       map: undefined
     }),
     methods: {
+      foundResults(layer){
+        var _this = this
+        if(!!layer){
+          axios.get(`http://localhost:3001/map/data/perth/${layer}.geojson`)
+          .then(response => {
+            let features = response.data.features.length
+            if(features > 0){
+              this.$message({
+                message: `Found ${features} results`,
+                type: 'success'
+              })
+            }else{
+              this.$message({
+                message: 'No results found',
+                type: 'warning'
+              })
+            }
+          })
+          .catch(e => {
+            this.$message({
+              message: 'No information found for this product',
+              type: 'warning'
+            })
+            console.log('Error:'+e)
+          })
+        }
+      },
       addProductLayer(newLayer){
         var _this = this
         // Add a layer showing the places.
@@ -98,6 +125,7 @@ export default {
           this.map.removeSource(oldLayer)
         }
         this.addProductLayer(newLayer)
+        this.foundResults(newLayer)
       }
     },
     mounted: function(){
