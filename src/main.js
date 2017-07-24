@@ -6,10 +6,12 @@ import App from './App.vue'
 import store from './store'
 import vuexI18n from 'vuex-i18n'
 import MyMain from './components/pages/MyMain.vue'
+import VeeValidate from 'vee-validate';
 import router from './router/index.js'
 
 Vue.use(ElementUI)
 Vue.use(vuexI18n.plugin, store)
+Vue.use(VeeValidate)
 
 const translationsEn = {
   "menu.title" : "Products",
