@@ -7,26 +7,31 @@
       <h4>Help us to improve the information provided in WhereToGet</h4>
     </div>
     <form @submit.prevent="validateBeforeSubmit" class="contribute-form">
-      <div :class="{ 'control': true }">
-        <input data-vv-delay="1000" v-model="contact.email" v-validate="'required|email'" :class="{'form-input': true, 'form-input is-danger': errors.has('email') }" name="email" type="text" placeholder="Your Email"/>
-        <div v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</div>
-      </div>
-      <div :class="{ 'control': true }">
-        <input data-vv-delay="1000" v-model="contact.name" v-validate="'required|alpha_spaces'" :class="{'form-input': true, 'form-input is-danger': errors.has('name') }" name="name" type="text" placeholder="Your Name"/>
-        <div v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</div>
-      </div>
-      <div :class="{ 'control': true }">
-        <input data-vv-delay="1000" v-model="contact.namePlace" v-validate="'required|max: 100'" :class="{'form-input': true, 'form-input is-danger': errors.has('namePlace') }" name="namePlace" type="text" placeholder="Name Place"/>
-        <div v-show="errors.has('namePlace')" class="help is-danger">{{ errors.first('namePlace') }}</div>
-      </div>
-      <div :class="{ 'control': true }">
-        <input data-vv-delay="1000" v-model="contact.address" v-validate="'required|min:5'" :class="{'form-input': true, 'form-input is-danger': errors.has('address') }" name="address" type="text" placeholder="Address"/>
-        <div v-show="errors.has('address')" class="help is-danger">{{ errors.first('address') }}</div>
-      </div>
-      <div :class="{ 'control': true }">
-        <textarea v-model="contact.message" rows="4" type="textarea" v-validate="'required|max: 1000'" :class="{'form-input form-input': true, 'form-input is-danger': errors.has('message') }" name="message"  placeholder="Message"/>
-        <div v-show="errors.has('message')" class="help is-danger">{{ errors.first('message') }}</div>
-      </div>
+      <md-input-container class="contribute-input">
+        <label>Email</label>
+        <md-input type="email" data-vv-delay="1000" v-model="contact.email" v-validate="'required|email'" :class="{'form-input': true, 'form-input is-danger': errors.has('email') }" name="email"></md-input>
+      </md-input-container>
+      <div v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</div>
+      <md-input-container class="contribute-input">
+        <label>Name</label>
+        <md-input data-vv-delay="1000" v-model="contact.name" v-validate="'required|alpha_spaces'" :class="{'form-input': true, 'form-input is-danger': errors.has('name') }" name="name" type="text"/>
+      </md-input-container>
+      <div v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</div>
+      <md-input-container class="contribute-input">
+        <label>Place</label>
+        <md-input data-vv-delay="1000" v-model="contact.namePlace" v-validate="'required|alpha_spaces'" :class="{'form-input': true, 'form-input is-danger': errors.has('namePlace') }" name="namePlace" type="text"/>
+      </md-input-container>
+      <div v-show="errors.has('namePlace')" class="help is-danger">{{ errors.first('namePlace') }}</div>
+      <md-input-container class="contribute-input">
+        <label>Address</label>
+        <md-input data-vv-delay="1000" v-model="contact.address" v-validate="'required'" :class="{'form-input': true, 'form-input is-danger': errors.has('address') }" name="address" type="text"/>
+      </md-input-container>
+      <div v-show="errors.has('address')" class="help is-danger">{{ errors.first('address') }}</div>
+      <md-input-container class="contribute-input">
+        <label>Message</label>
+        <md-textarea v-model="contact.message" rows="6" type="text" v-validate="'required|max:1000'" :class="{'form-input form-input': true, 'form-input is-danger': errors.has('message') }" name="message"/>
+      </md-input-container>
+      <div v-show="errors.has('message')" class="help is-danger">{{ errors.first('message') }}</div>
       <button class="btn">SEND</button>
     </form>
   </div>
@@ -84,7 +89,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.contribute-input{
+  margin-bottom: 1rem;
+  width: 80% !important;
+}
+.contribute-input input{
+  background-color: #fff;
+}
+.md-input{
+  color: #ffffff;
+  background-color: #fff;
+  border: 1px solid #DBE2E9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07), 0 0 0 2px transparent inset;
+  box-sizing: border-box;
+}
 .content-contribute{
   height: calc(100vh - 145px);
   padding: -1rem 0.5rem 0 0.5rem;
@@ -111,13 +130,10 @@ export default {
  display: flex;
  flex-direction: column;
  align-items: center;
+ max-width: 100%;
 }
-.btn{
-  color: #fff;
-  font-size: 0.7rem;
-  padding: 0.5rem 3rem 0.5rem 3rem;
-  border-radius: 2rem;
-  background-color: #506DDA;
+.md-input-container.contribute-input.md-theme-default{
+  margin: 0px;
 }
 textarea{
   font-size: 1rem !important;
@@ -133,8 +149,6 @@ textarea:focus, textarea:focus{
 
 .form-input{
   width: 70%;
-  padding: 1.4rem;
-  margin: 0.2rem 0 0.2rem 0;
   background-color: #fff;
   border: 1px solid #DBE2E9;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07), 0 0 0 2px transparent inset;
@@ -148,14 +162,40 @@ textarea:focus, textarea:focus{
   input{
     margin: 0px;
   }
-  .contribute-header h1{
-    font-size: 1.2rem;
+  .md-input-container.contribute-input.md-theme-default{
+    margin-top: -0.8rem;
   }
-  .contribute-header h3{
+  .contribute-header h1{
     font-size: 1rem;
   }
-  .contribute-header h4{
+  .contribute-header h3{
     font-size: 0.8rem;
   }
+  .contribute-header h4{
+    font-size: 0.6rem;
+  }
+
+  .btn{
+    margin-top: 0.2rem;
+    margin-bottom: 0.5rem;
+  }
+}
+.md-input-container{
+  margin: 0px;
+}
+.btn{
+  margin-top: 1rem;
+  color: #fff;
+  border: none;
+  font-size: 0.7rem;
+  padding: 0.5rem 3rem 0.5rem 3rem;
+  border-radius: 2rem;
+  background-color: #506DDA;
+}
+input{
+  padding-left: 1rem;
+}
+input:focus {
+   padding-left: 1em;
 }
 </style>

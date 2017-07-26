@@ -1,8 +1,11 @@
 <template>
   <div class="searcher-content">
     <div class="searcher">
-      <input @keyup.enter="handleSearchInput(filterValue)" v-model="filterValue" placeholder="nombre producto, nombre servicio">
-      <img @click="handleSearchInput(filterValue)" src="../../assets/images/search.svg"></img>
+      <md-input-container class="searcher-input" md-inline>
+        <label>Nombre del Producto</label>
+        <md-input @keyup.enter.native="handleSearchInput(filterValue)" v-model="filterValue"></md-input>
+      </md-input-container>
+      <img class="search-action" @click="handleSearchInput(filterValue)" src="../../assets/images/search.svg"></img>
       </input>
     </div>
   </div>
@@ -42,7 +45,6 @@ export default {
 </script>
 
 <style>
-
 .searcher-content{
   background-color: transparent;
   display: flex;
@@ -55,25 +57,16 @@ export default {
   display: flex;
   justify-content: center;
   background-color: #fff;
-  height: 3rem;
-  width: 70%;
+  height: 4.5rem;
+  width: 80%;
   z-index: 2;
   padding: 1rem;
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-input{
-  font-size:          1rem;
-  border:             0px;
-  height:             2rem;
-  border-bottom:      1px solid #DBE2E9;
-  width: 90%;
-  align-self:         center;
-  -webkit-appearance: textfield;
-  -moz-appearance:    textfield;
-  appearance:         textfield;
+.searcher-input{
+  margin-top: -0.8rem !important;
 }
-
-input:focus, input:focus{
-    outline: none;
+.search-action{
+  width: 3rem;;
 }
 </style>

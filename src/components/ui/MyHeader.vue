@@ -105,7 +105,7 @@ export default {
 @media only screen and (max-width: 800px) {
 
   .my-header{
-    padding: 1.5rem 1rem 1.5rem 1rem;
+    padding: 1.2rem 1rem 1.5rem 1rem;
   }
   .my-header .home{
     display: none;

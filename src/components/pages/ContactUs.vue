@@ -4,19 +4,22 @@
       <h1>Contact Us</h1>
     </div>
     <vue-up></vue-up>
-    <form @submit.prevent="validateBeforeSubmit" class="contribute-form">
-      <div :class="{ 'control': true }">
-        <input data-vv-delay="1000" v-model="contact.email" v-validate="'required|email'" :class="{'form-input': true, 'form-input is-danger': errors.has('email') }" name="email" type="text" placeholder="Your Email"/>
-        <div v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</div>
-      </div>
-      <div :class="{ 'control': true }">
-        <input data-vv-delay="1000" v-model="contact.name" v-validate="'required|alpha_spaces'" :class="{'form-input': true, 'form-input is-danger': errors.has('name') }" name="name" type="text" placeholder="Your Name"/>
-        <div v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</div>
-      </div>
-      <div :class="{ 'control': true }">
-        <textarea v-model="contact.message" rows="6" type="textarea" v-validate="'required|max:1000'" :class="{'form-input form-input': true, 'form-input is-danger': errors.has('message') }" name="message"  placeholder="Message"/>
-        <div v-show="errors.has('message')" class="help is-danger">{{ errors.first('message') }}</div>
-      </div>
+    <form @submit.prevent="validateBeforeSubmit" class="contact-form">
+      <md-input-container class="contactus-input">
+        <label>Email</label>
+        <md-input data-vv-delay="1000" v-model="contact.email" v-validate="'required|email'" :class="{'form-input': true, 'form-input is-danger': errors.has('email') }" name="email"></md-input>
+      </md-input-container>
+      <div v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</div>
+      <md-input-container class="contactus-input">
+        <label>Name</label>
+        <md-input data-vv-delay="1000" v-model="contact.name" v-validate="'required|alpha_spaces'" :class="{'form-input': true, 'form-input is-danger': errors.has('name') }" name="name" type="text"/>
+      </md-input-container>
+      <div v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</div>
+      <md-input-container class="contactus-input">
+        <label>Message</label>
+        <md-textarea v-model="contact.message" rows="6" type="text" v-validate="'required|max:1000'" :class="{'form-input form-input': true, 'form-input is-danger': errors.has('message') }" name="message"/>
+      </md-input-container>
+      <div v-show="errors.has('message')" class="help is-danger">{{ errors.first('message') }}</div>
       <button class="btn">SEND</button>
     </form>
   </div>
@@ -63,7 +66,6 @@ export default {
           _this.sendEmail(_this.contact);
           return;
         }
-
         alert('Correct the errors!');
       });
     }
@@ -71,8 +73,22 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.contact-form{
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.md-input{
+  color: #ffffff;
+  background-color: #fff;
+  border: 1px solid #DBE2E9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07), 0 0 0 2px transparent inset;
+  box-sizing: border-box;
+}
 .btn{
+  margin-top: 1rem;
   border: 0px;
 }
 .btn.inactive{
@@ -80,6 +96,7 @@ export default {
 }
 .form-input{
   width: 70% !important;
+  padding-left: 1rem;
 }
 .help.is-danger{
   align-self: center;
@@ -106,7 +123,28 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   height: calc(100vh - 145px)
+}
+.contactus-input{
+  margin-bottom: 1rem;
+  width: 80% !important;
+}
+.contactus-input input{
+  background-color: #fff;
+  padding-left: 1rem;
+}
+.contactus-input input:focus{
+  padding-left: 1em;
+}
+.md-input-container{
+  margin: 0px;
+}
+.btn{
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 0.5rem 3rem 0.5rem 3rem;
+  border-radius: 2rem;
+  background-color: #506DDA;
 }
 </style>

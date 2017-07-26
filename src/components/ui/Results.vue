@@ -5,7 +5,7 @@
         <img :src="iconCancel" width="1rem" height="1rem"/>
       </div>
       <div>
-        <h4>Where to get {{ this.resultProduct.product }}</h4>
+        <h4>Where to get {{ this.resultProduct.product.name }}</h4>
       </div>
     </div>
     <div class="body">
@@ -66,6 +66,17 @@ h4{
   max-height: calc(100vh - 360px);
   display: block;
   overflow: scroll;
+}
+@media only screen and (max-width: 480px) {
+  .result{
+    width: 85%;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .result{
+    width: 70%;
+  }
 }
 
 .result-container{

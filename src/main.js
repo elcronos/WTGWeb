@@ -17,7 +17,7 @@ Vue.use(VueMaterial.MdCore)
 Vue.use(VueUp)
 Vue.use(ElementUI)
 Vue.use(vuexI18n.plugin, store)
-
+Vue.use(VueMaterial)
 Vue.use(VeeValidate)
 
 const translationsEn = {

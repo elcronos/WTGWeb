@@ -1,10 +1,9 @@
 <template>
-    <el-dialog class="product-dialog" :title="message"
+    <el-dialog :size="sizeDialog" class="product-dialog" :title="message"
     :before-close="handleClose"
     :visible.sync="isVisible">
         <div class="action-bar">
           <el-button @click="search(checkedProducts)" :disabled="disabled" type="primary">{{ $t('product.actionbar.search') }}</el-button>
-          <el-button @click="selectAll" type="primary">{{ $t('product.actionbar.searchall') }}</el-button>
           <el-button @click="clearAll" :disabled="disabled" type="primary">{{ $t('product.actionbar.clearall') }}</el-button>
         </div>
         <table class="table">
@@ -19,7 +18,7 @@
           <tbody class="scrollable">
             <tr class="table-products" v-for="p in data">
               <td class="table-checkbox">
-                <input type="checkbox" :id="p.id" :value="p" v-model="checkedProducts"/>
+                <input @click="handleClickCheckbox(p)" type="checkbox" :id="p.id" :value="p" v-model="checkedProducts"/>
                 <label :for="p.id">{{ p.name }}</label>
               </td>
               <td class="table-item"><img :src="`http://localhost:3001/products/${p.countryId}/${p.file}.png`"/></td>
@@ -35,7 +34,8 @@
     import axios from 'axios'
     export default {
         data: () => ({
-          checkedProducts : []
+          checkedProducts : [],
+          sizeDialog      : 'large'
         }),
         computed: {
           ...mapGetters({
@@ -44,7 +44,7 @@
           }),
           message(){
             if(this.checkedProducts.length > 0){
-              return `Search Products: ${this.checkedProducts.map( p => p.name.toLowerCase()).join(', ')}`
+              return `Search Product: ${this.checkedProducts.map( p => p.name.toLowerCase()).join(', ')}`
             }else{
               return 'Please select at least one product:'
             }
@@ -63,6 +63,16 @@
             'setLayerProduct',
             'setResult'
           ]),
+          handleClickCheckbox(product){
+            var _this = this
+            this.data.forEach(p => {
+              if(p.id === product.id){
+                _this.checkedProducts = []
+                _this.checkedProducts.push(p)
+                return true;
+              }
+            })
+          },
           handleClose(){
             this.checkedProducts = []
             this.closeDialog()
@@ -88,6 +98,7 @@
               if(features > 0){
                 result.features = response.data.features
                 result.visible = true
+                result.product = products[0]
                 this.setResult(result)
               }
             })
@@ -215,6 +226,21 @@ img {
 /* hover style just for information */
 label:hover:before {
   border: 2px solid #4778d9!important;
+}
+
+@media only screen and (max-width: 450px) {
+  img {
+    max-width:2rem !important;
+    max-height:7rem !important;
+    width: auto !important;
+    height: auto !important;
+  }
+  .table-item{
+      font-size: 12px;
+  }
+  label{
+    font-size: 10px;
+  }
 }
 
 </style>

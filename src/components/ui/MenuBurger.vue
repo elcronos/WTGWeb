@@ -11,7 +11,7 @@
             <li><a @click="setValue" href="/#">Home</a></li>
             <li><a @click="setValue" href="#/Contribute">Contribute</a></li>
             <li><a @click="setValue" href="#/ContactUs">Contact Us</a></li>
-            <li><a @click="setValue" href="#">About</a></li>
+            
           </ul>
         </div>
       </div>
