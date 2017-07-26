@@ -5,6 +5,7 @@
 <script>
 import Vue from 'vue';
 import axios from 'axios';
+import { Message } from 'element-ui';
 
 export default {
     props: ['layer'],
@@ -25,15 +26,9 @@ export default {
           .then(response => {
             let features = response.data.features.length
             if(features > 0){
-              this.$message({
-                message: `Found ${features} results`,
-                type: 'success'
-              })
+              this.$message({message: `Found ${features} results`, type: 'success'})
             }else{
-              this.$message({
-                message: 'No results found',
-                type: 'warning'
-              })
+              this.$message({message: 'No results found', type: 'message'})
             }
           })
           .catch(e => {
@@ -114,5 +109,9 @@ export default {
 </script>
 
 <style>
+.el-message{
+  width: 50%;
+  display: flex;
+}
 
 </style>

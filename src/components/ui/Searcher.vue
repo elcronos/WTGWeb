@@ -27,7 +27,6 @@ export default {
       var _this = this
         axios.get(`http://localhost:3000/products?name=${value}`)
         .then(response => {
-          //_this.products = response.data
           _this.setData(response.data)
           _this.openDialog()
         })
@@ -43,6 +42,7 @@ export default {
 </script>
 
 <style>
+
 .searcher-content{
   background-color: transparent;
   display: flex;
@@ -62,12 +62,15 @@ export default {
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 input{
-  font-size: 1rem;
-  border: 0;
-  height: 2rem;
-  border-bottom: 1px solid #DBE2E9;
+  font-size:          1rem;
+  border:             0px;
+  height:             2rem;
+  border-bottom:      1px solid #DBE2E9;
   width: 90%;
-  align-self: center;
+  align-self:         center;
+  -webkit-appearance: textfield;
+  -moz-appearance:    textfield;
+  appearance:         textfield;
 }
 
 input:focus, input:focus{

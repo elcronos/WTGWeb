@@ -1,4 +1,3 @@
-
 <template>
     <el-dialog class="product-dialog" :title="message"
     :before-close="handleClose"

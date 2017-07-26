@@ -3,6 +3,7 @@
     <div class="contactus-header">
       <h1>Contact Us</h1>
     </div>
+    <vue-up></vue-up>
     <form @submit.prevent="validateBeforeSubmit" class="contribute-form">
       <div :class="{ 'control': true }">
         <input data-vv-delay="1000" v-model="contact.email" v-validate="'required|email'" :class="{'form-input': true, 'form-input is-danger': errors.has('email') }" name="email" type="text" placeholder="Your Email"/>
@@ -22,20 +23,44 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data: () => ({
     contact : {
-      email: '',
-      name: '',
-      message: ''
+      name    : '',
+      email   : '',
+      message : ''
     }
   }),
+  mounted: function(){
+
+  },
   methods: {
+    notify (message) {
+      this.$popup({
+        message         : message,
+        color           : '#fff',
+        backgroundColor : 'rgba(62, 181, 42, 0.9)',
+        delay           : 10
+      })
+    },
+    sendEmail(email){
+      this.notify('Thank you for contacting us !')
+      axios.post(`http://localhost:3000/email`, email)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.$router.push('/#')
+      })
+      .catch(e => {
+        console.log("Ooppss.."+e)
+      })
+    },
     validateBeforeSubmit(){
+      var _this = this
       this.$validator.validateAll().then(result => {
         if (result) {
-          // eslint-disable-next-line
-          alert('Form Submitted!');
+          _this.sendEmail(_this.contact);
           return;
         }
 
@@ -71,13 +96,17 @@ export default {
 .contactus-header{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  text-align: center;
 }
 .contactus-header h1{
   color: #7F7B82;
   margin: 2rem 0 1.5rem 0;
 }
 .content-contactus{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: calc(100vh - 145px)
 }
 </style>

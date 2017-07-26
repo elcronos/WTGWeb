@@ -108,4 +108,15 @@ h4{
   border-radius: 0.75rem;
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.el-button--primary {
+    color: #fff;
+    background-color: #506DDA;
+    border-color: #506DDA;
+}
+.el-button--primary:hover {
+    color: #fff;
+    background-color: #5D7BE5;
+    border-color: #5D7BE5;
+}
 </style>

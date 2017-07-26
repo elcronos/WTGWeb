@@ -33,4 +33,11 @@ body {
   margin: 0;
   background-color: #fbfbfb;
 }
+*:not(input.field) {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 </style>
