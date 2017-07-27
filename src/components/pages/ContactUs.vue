@@ -50,7 +50,7 @@ export default {
     },
     sendEmail(email){
       this.notify('Thank you for contacting us !')
-      axios.post(`http://localhost:3000/email`, email)
+      axios.post(`http://192.168.1.4:3000/email`, email)
       .then(response => {
         // JSON responses are automatically parsed.
         this.$router.push('/#')

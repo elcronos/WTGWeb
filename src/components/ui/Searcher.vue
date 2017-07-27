@@ -28,7 +28,7 @@ export default {
     handleSearchInput(value) {
       console.log('Search...'+value)
       var _this = this
-        axios.get(`http://localhost:3000/products?name=${value}`)
+        axios.get(`http://192.168.1.4:3000/products?name=${value}`)
         .then(response => {
           _this.setData(response.data)
           _this.openDialog()

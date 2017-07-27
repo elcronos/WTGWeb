@@ -21,7 +21,7 @@
                 <input @click="handleClickCheckbox(p)" type="checkbox" :id="p.id" :value="p" v-model="checkedProducts"/>
                 <label :for="p.id">{{ p.name }}</label>
               </td>
-              <td class="table-item"><img :src="`http://localhost:3001/products/${p.countryId}/${p.file}.png`"/></td>
+              <td class="table-item"><img :src="`http://192.168.1.4:3001/products/${p.countryId}/${p.file}.png`"/></td>
               <td class="table-item">{{ p.country.name }}</td>
             </tr>
           </tbody>
@@ -92,7 +92,7 @@
             this.setLayerProduct(products[0].file)
             var result = {features:[], visible:false, product: products[0].file}
             // Set result
-            axios.get(`http://localhost:3001/map/data/perth/${products[0].file}.geojson`)
+            axios.get(`http://192.168.1.4:3001/map/data/perth/${products[0].file}.geojson`)
             .then(response => {
               let features = response.data.features.length
               if(features > 0){

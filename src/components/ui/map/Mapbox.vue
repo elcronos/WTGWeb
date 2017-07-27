@@ -22,7 +22,7 @@ export default {
       foundResults(layer){
         var _this = this
         if(!!layer){
-          axios.get(`http://localhost:3001/map/data/perth/${layer}.geojson`)
+          axios.get(`http://192.168.1.4:3001/map/data/perth/${layer}.geojson`)
           .then(response => {
             let features = response.data.features.length
             if(features > 0){
@@ -45,7 +45,7 @@ export default {
         // Add a layer showing the places.
         this.map.addSource(`${newLayer}`, {
         "type": "geojson",
-        "data": `http://localhost:3001/map/data/perth/${newLayer}.geojson`
+        "data": `http://192.168.1.4:3001/map/data/perth/${newLayer}.geojson`
         });
         //Text
         this.map.addLayer({
