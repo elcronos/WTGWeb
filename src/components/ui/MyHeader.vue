@@ -5,7 +5,7 @@
     <div class="home">
       <router-link class="page-link" to="/#">
         <div class="image"><img src="../../assets/images/house.svg"></img></div>
-        <div class="text">Home</div>
+        <div class="text">{{ $t('header.home') }}</div>
       </router-link>
     </div>
     <div></div>
@@ -13,11 +13,11 @@
     <div class="links">
       <router-link class="page-link" to="/Contribute">
         <div class="image"><img src="../../assets/images/map-location.svg"></img></div>
-        <div class="text">Contribute with information</div>
+        <div class="text">{{ $t('header.contribute') }}</div>
       </router-link>
       <router-link class="page-link" to="/ContactUs">
         <div class="image"><img src="../../assets/images/envelope.svg"></img></div>
-        <div class="text">Contact Us</div>
+        <div class="text">{{ $t('header.contactus') }}</div>
       </router-link>
     </div>
     <div class="right-spacing"></div>
@@ -89,6 +89,7 @@ export default {
   .router-link-active{
     border-bottom: 0.3rem solid #5D7BE5;
   }
+
   .links{
     display: flex;
   }

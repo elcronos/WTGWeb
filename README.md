@@ -20,7 +20,7 @@ npm install
 ## Develop
 
 ``` bash
-# serve with hot reload at 192.168.1.4:8010
+# serve with hot reload at localhost:8010
 npm run dev
 ```
 

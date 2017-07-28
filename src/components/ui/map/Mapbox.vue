@@ -6,6 +6,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import { Message } from 'element-ui';
+import { SERVER } from '../../../data/data.js'
 
 export default {
     props: ['layer'],
@@ -22,18 +23,18 @@ export default {
       foundResults(layer){
         var _this = this
         if(!!layer){
-          axios.get(`http://192.168.1.4:3001/map/data/perth/${layer}.geojson`)
+          axios.get(`http://${SERVER}:3001/map/data/perth/${layer}.geojson`)
           .then(response => {
             let features = response.data.features.length
             if(features > 0){
-              this.$message({message: `Found ${features} results`, type: 'success'})
+              this.$message({message: `${ this.$t('notify.found') } ${features} ${ this.$t('notify.results') }`, type: 'success'})
             }else{
-              this.$message({message: 'No results found', type: 'message'})
+              this.$message({message: `${ this.$t('notify.notfound') }`, type: 'message'})
             }
           })
           .catch(e => {
             this.$message({
-              message: 'No information found for this product',
+              message: `${ this.$t('notify.notfound.warning')}`,
               type: 'warning'
             })
             console.log('Error:'+e)
@@ -45,7 +46,7 @@ export default {
         // Add a layer showing the places.
         this.map.addSource(`${newLayer}`, {
         "type": "geojson",
-        "data": `http://192.168.1.4:3001/map/data/perth/${newLayer}.geojson`
+        "data": `http://${SERVER}:3001/map/data/perth/${newLayer}.geojson`
         });
         //Text
         this.map.addLayer({

@@ -7,6 +7,7 @@ Vue.use(Vuex)
 // each Vuex instance is just a single state tree.
 const state = {
   visibleDialog: false,
+  checked: false,
   products: [],
   layer: 'default',
   result: {features:[], visible:false, product: ''},
@@ -42,29 +43,34 @@ const mutations = {
   },
   setData (state, data){
     state.data = data
+  },
+  setCheckedMenu(state, checked){
+    state.checked = checked
   }
 }
 
 // actions are functions that causes side effects and can involve
 // asynchronous operations.
 const actions = {
-  openDialog: ({ commit }) => commit('openDialog'),
-  closeDialog: ({ commit }) => commit('closeDialog'),
-  addProduct: ({ commit } , product) => commit('addProduct', product),
-  removeProduct: ({ commit } , product) => commit('removeProduct', product),
-  clearProducts: ({ commit }) => commit('clearProducts'),
-  setLayerProduct: ({ commit }, layer) => commit('setLayerProduct', layer),
-  setResult: ({ commit }, result) => commit('setResult', result),
-  setData: ({ commit }, data) => commit('setData', data)
+  openDialog      : ({ commit }) => commit('openDialog'),
+  closeDialog     : ({ commit }) => commit('closeDialog'),
+  addProduct      : ({ commit } , product) => commit('addProduct', product),
+  removeProduct   : ({ commit } , product) => commit('removeProduct', product),
+  clearProducts   : ({ commit }) => commit('clearProducts'),
+  setLayerProduct : ({ commit }, layer) => commit('setLayerProduct', layer),
+  setResult       : ({ commit }, result) => commit('setResult', result),
+  setData         : ({ commit }, data) => commit('setData', data),
+  setCheckedMenu  : ({ commit }, checked) => commit('setCheckedMenu', checked)
 }
 
 // getters are functions
 const getters = {
-  dialog: state => state.visibleDialog,
-  selectedProducts: state => state.products,
-  layer: state => state.layer,
-  result: state => state.result,
-  data: state => state.data
+  dialog            : state => state.visibleDialog,
+  selectedProducts  : state => state.products,
+  layer             : state => state.layer,
+  result            : state => state.result,
+  data              : state => state.data,
+  checked           : state => state.checked
 }
 
 // A Vuex instance is created by combining the state, mutations, actions,

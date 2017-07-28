@@ -2,43 +2,44 @@
   <div class="content-contribute">
     <vue-up></vue-up>
     <div class="contribute-header">
-      <h1>Contribute with information</h1>
-      <h3>Do you know about a place or product that is not listed here?</h3>
-      <h4>Help us to improve the information provided in WhereToGet</h4>
+      <h1>{{ $t('header.contribute') }}</h1>
+      <h3>{{ $t('message.contribute') }}</h3>
+      <h4>{{ $t('message.contribute.subheader')}}</h4>
     </div>
     <form @submit.prevent="validateBeforeSubmit" class="contribute-form">
       <md-input-container class="contribute-input">
-        <label>Email</label>
+        <label>{{ $t('message.email') }}</label>
         <md-input type="email" data-vv-delay="1000" v-model="contact.email" v-validate="'required|email'" :class="{'form-input': true, 'form-input is-danger': errors.has('email') }" name="email"></md-input>
       </md-input-container>
       <div v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</div>
       <md-input-container class="contribute-input">
-        <label>Name</label>
+        <label>{{ $t('message.name') }}</label>
         <md-input data-vv-delay="1000" v-model="contact.name" v-validate="'required|alpha_spaces'" :class="{'form-input': true, 'form-input is-danger': errors.has('name') }" name="name" type="text"/>
       </md-input-container>
       <div v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</div>
       <md-input-container class="contribute-input">
-        <label>Place</label>
+        <label>{{ $t('message.place') }}</label>
         <md-input data-vv-delay="1000" v-model="contact.namePlace" v-validate="'required|alpha_spaces'" :class="{'form-input': true, 'form-input is-danger': errors.has('namePlace') }" name="namePlace" type="text"/>
       </md-input-container>
       <div v-show="errors.has('namePlace')" class="help is-danger">{{ errors.first('namePlace') }}</div>
       <md-input-container class="contribute-input">
-        <label>Address</label>
+        <label>{{ $t('message.address') }}</label>
         <md-input data-vv-delay="1000" v-model="contact.address" v-validate="'required'" :class="{'form-input': true, 'form-input is-danger': errors.has('address') }" name="address" type="text"/>
       </md-input-container>
       <div v-show="errors.has('address')" class="help is-danger">{{ errors.first('address') }}</div>
       <md-input-container class="contribute-input">
-        <label>Message</label>
+        <label>{{ $t('message.message') }}</label>
         <md-textarea v-model="contact.message" rows="6" type="text" v-validate="'required|max:1000'" :class="{'form-input form-input': true, 'form-input is-danger': errors.has('message') }" name="message"/>
       </md-input-container>
       <div v-show="errors.has('message')" class="help is-danger">{{ errors.first('message') }}</div>
-      <button class="btn">SEND</button>
+      <button class="btn">{{ $t('message.send') }}</button>
     </form>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { SERVER } from '../../data/data.js'
 
 export default {
   data: () => ({
@@ -61,7 +62,7 @@ export default {
     },
     sendEmail(email){
       this.notify('Thank you for helping us !')
-      axios.post(`http://192.168.1.4:3000/email`, email)
+      axios.post(`http://${SERVER}:3000/email`, email)
       .then(response => {
         // JSON responses are automatically parsed.
         this.$router.push('/#')

@@ -1,8 +1,8 @@
 <template>
   <div class="searcher-content">
-    <div class="searcher">
+    <div :class="searchStyle">
       <md-input-container class="searcher-input" md-inline>
-        <label>Nombre del Producto</label>
+        <label>{{ $t('searcher.placeholder') }}</label>
         <md-input @keyup.enter.native="handleSearchInput(filterValue)" v-model="filterValue"></md-input>
       </md-input-container>
       <img class="search-action" @click="handleSearchInput(filterValue)" src="../../assets/images/search.svg"></img>
@@ -14,12 +14,25 @@
 <script>
 import axios from 'axios';
 import Products from './Products.vue';
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import { SERVER } from '../../data/data.js'
 
 export default {
   data: () => ({
     filterValue: ''
   }),
+  computed:{
+    ...mapGetters({
+      checked: 'checked'
+    }),
+    searchStyle(){
+      if(this.checked){
+        return 'searcher-checked'
+      }else{
+        return 'searcher'
+      }
+    }
+  },
   methods: {
     ...mapActions([
       'openDialog',
@@ -28,7 +41,7 @@ export default {
     handleSearchInput(value) {
       console.log('Search...'+value)
       var _this = this
-        axios.get(`http://192.168.1.4:3000/products?name=${value}`)
+        axios.get(`http://${SERVER}:3000/products?name=${value}`)
         .then(response => {
           _this.setData(response.data)
           _this.openDialog()
@@ -57,9 +70,19 @@ export default {
   display: flex;
   justify-content: center;
   background-color: #fff;
+  z-index: 10;
   height: 4.5rem;
   width: 80%;
-  z-index: 2;
+  padding: 1rem;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.searcher-checked{
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  height: 4.5rem;
+  z-index: 4;
+  width: 80%;
   padding: 1rem;
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

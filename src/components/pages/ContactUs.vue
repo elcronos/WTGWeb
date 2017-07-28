@@ -1,32 +1,33 @@
 <template>
   <div class="content-contactus">
     <div class="contactus-header">
-      <h1>Contact Us</h1>
+      <h1> {{ $t('header.contactus') }}</h1>
     </div>
     <vue-up></vue-up>
     <form @submit.prevent="validateBeforeSubmit" class="contact-form">
       <md-input-container class="contactus-input">
-        <label>Email</label>
+        <label>{{ $t('message.email') }}</label>
         <md-input data-vv-delay="1000" v-model="contact.email" v-validate="'required|email'" :class="{'form-input': true, 'form-input is-danger': errors.has('email') }" name="email"></md-input>
       </md-input-container>
       <div v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</div>
       <md-input-container class="contactus-input">
-        <label>Name</label>
+        <label>{{ $t('message.name') }}</label>
         <md-input data-vv-delay="1000" v-model="contact.name" v-validate="'required|alpha_spaces'" :class="{'form-input': true, 'form-input is-danger': errors.has('name') }" name="name" type="text"/>
       </md-input-container>
       <div v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</div>
       <md-input-container class="contactus-input">
-        <label>Message</label>
+        <label>{{ $t('message.message') }}</label>
         <md-textarea v-model="contact.message" rows="6" type="text" v-validate="'required|max:1000'" :class="{'form-input form-input': true, 'form-input is-danger': errors.has('message') }" name="message"/>
       </md-input-container>
       <div v-show="errors.has('message')" class="help is-danger">{{ errors.first('message') }}</div>
-      <button class="btn">SEND</button>
+      <button class="btn">{{ $t('message.send') }}</button>
     </form>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { SERVER } from '../../data/data.js'
 
 export default {
   data: () => ({
@@ -50,7 +51,7 @@ export default {
     },
     sendEmail(email){
       this.notify('Thank you for contacting us !')
-      axios.post(`http://192.168.1.4:3000/email`, email)
+      axios.post(`http://${SERVER}:3000/email`, email)
       .then(response => {
         // JSON responses are automatically parsed.
         this.$router.push('/#')

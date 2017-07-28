@@ -21,7 +21,7 @@
                 <input @click="handleClickCheckbox(p)" type="checkbox" :id="p.id" :value="p" v-model="checkedProducts"/>
                 <label :for="p.id">{{ p.name }}</label>
               </td>
-              <td class="table-item"><img :src="`http://192.168.1.4:3001/products/${p.countryId}/${p.file}.png`"/></td>
+              <td class="table-item"><img :src="`http://${getServer}:3001/products/${p.countryId}/${p.file}.png`"/></td>
               <td class="table-item">{{ p.country.name }}</td>
             </tr>
           </tbody>
@@ -31,6 +31,7 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex'
+    import { SERVER } from '../../data/data.js'
     import axios from 'axios'
     export default {
         data: () => ({
@@ -42,11 +43,15 @@
             isVisible : 'dialog',
             data: 'data'
           }),
+          getServer(){
+            let server = `${SERVER}`
+            return server
+          },
           message(){
             if(this.checkedProducts.length > 0){
-              return `Search Product: ${this.checkedProducts.map( p => p.name.toLowerCase()).join(', ')}`
+              return `${this.$t('product.title.search')}: ${this.checkedProducts.map( p => p.name.toLowerCase()).join(', ')}`
             }else{
-              return 'Please select at least one product:'
+              return `${this.$t('product.title')}`
             }
           },
           disabled(){
@@ -91,8 +96,9 @@
             this.closeDialog()
             this.setLayerProduct(products[0].file)
             var result = {features:[], visible:false, product: products[0].file}
+            let server = `${SERVER}`
             // Set result
-            axios.get(`http://192.168.1.4:3001/map/data/perth/${products[0].file}.geojson`)
+            axios.get(`http://${server}:3001/map/data/perth/${products[0].file}.geojson`)
             .then(response => {
               let features = response.data.features.length
               if(features > 0){

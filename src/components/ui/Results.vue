@@ -5,7 +5,7 @@
         <img :src="iconCancel" width="1rem" height="1rem"/>
       </div>
       <div>
-        <h4>Where to get {{ this.resultProduct.product.name }}</h4>
+        <h4>{{ $t('results.wheretoget')}} {{ this.resultProduct.product.name }}</h4>
       </div>
     </div>
     <div class="body">
@@ -71,17 +71,23 @@ h4{
   .result{
     width: 85%;
   }
+  .result-container{
+    max-height: calc(100vh - 360px);
+  }
 }
 
 @media only screen and (max-width: 350px) {
   .result{
     width: 70%;
   }
+  .result-container{
+    max-height: calc(100vh - 360px);
+  }
 }
 
 .result-container{
   top: 12rem;
-  z-index: 1;
+  z-index: 9;
   position: absolute;
   background-color: transparent;
   width: 25rem;
@@ -89,6 +95,7 @@ h4{
 }
 .result-container.hidden{
   width: 0;
+  z-index: 0;
   display: none;
 }
 .result-container .header {

@@ -28,6 +28,7 @@ import axios from 'axios';
 import TableProducts from './TableProducts.vue';
 import Products from './Products.vue';
 import { mapActions } from 'vuex'
+import { SERVER } from '../../data/data.js'
 
 export default {
   data: () => ({
@@ -43,7 +44,7 @@ export default {
       var _this = this
       console.log('FilterBy:'+this.filterBy+' Value:'+value)
       if(this.filterBy == 'name'){
-        axios.get(`http://192.168.1.4:3000/products?name=${value}`)
+        axios.get(`http://${SERVER}:3000/products?name=${value}`)
         .then(response => {
           // JSON responses are automatically parsed.
           _this.products = response.data
@@ -54,7 +55,7 @@ export default {
           console.log("Ooppss.."+e)
         })
       }else{
-        axios.get(`http://192.168.1.4:3000/products?country=${value}`)
+        axios.get(`http://${SERVER}:3000/products?country=${value}`)
         .then(response => {
           // JSON responses are automatically parsed.
           _this.products = response.data

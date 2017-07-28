@@ -1,5 +1,5 @@
 <template>
-  <div class="outer-menu">
+  <div @click="setChecked" class="outer-menu">
     <input v-model="value" class="checkbox-toggle" type="checkbox" />
     <div class="hamburger">
       <div></div>
@@ -8,10 +8,9 @@
       <div>
         <div>
           <ul>
-            <li><a @click="setValue" href="/#">Home</a></li>
-            <li><a @click="setValue" href="#/Contribute">Contribute</a></li>
-            <li><a @click="setValue" href="#/ContactUs">Contact Us</a></li>
-            
+            <li><a @click="setValue" href="/#">{{ $t('header.home') }}</a></li>
+            <li><a @click="setValue" href="#/Contribute">{{ $t('header.contribute') }}</a></li>
+            <li><a @click="setValue" href="#/ContactUs">{{ $t('header.contactus') }}</a></li>
           </ul>
         </div>
       </div>
@@ -20,13 +19,25 @@
 </template>
 
 <script>
+  import { mapActions, mapGetters } from 'vuex'
   export default{
     data: () => ({
-      value : ''
+      value : false
     }),
+    computed: {
+      ...mapGetters({
+        checked: 'checked'
+      })
+    },
     methods:{
+      ...mapActions([
+        'setCheckedMenu'
+      ]),
       setValue(){
         this.value = !this.value
+      },
+      setChecked(){
+        this.setCheckedMenu(this.value)
       }
     }
   }
@@ -74,7 +85,6 @@ h1 {
   position: fixed;
   top: 10vh;
   left: 0;
-  z-index: 3;
 }
 
 .outer-menu .checkbox-toggle {
