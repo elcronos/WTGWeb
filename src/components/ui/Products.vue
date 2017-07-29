@@ -1,7 +1,15 @@
 <template>
-    <el-dialog :size="sizeDialog" class="product-dialog" :title="message"
-    :before-close="handleClose"
-    :visible.sync="isVisible">
+    <md-dialog
+      :md-esc-to-close="false"
+      md-open-from="#product"
+      md-close-to="#product"
+      :md-click-outside-to-close="false"
+      ref="productdialog">
+      <div class="dialog-header">
+        <div class="message">{{ message }}</div>
+        <div class="close"> <img @click="handleClose" class="close-image" :src="iconCancel" width="1rem" height="1rem"/></div>
+      </div>
+      <md-dialog-content>
         <div class="action-bar">
           <el-button @click="search(checkedProducts)" :disabled="disabled" type="primary">{{ $t('product.actionbar.search') }}</el-button>
           <el-button @click="clearAll" :disabled="disabled" type="primary">{{ $t('product.actionbar.clearall') }}</el-button>
@@ -26,7 +34,8 @@
             </tr>
           </tbody>
         </table>
-    </el-dialog>
+      </md-dialog-content>
+    </md-dialog>
 </template>
 
 <script>
@@ -36,7 +45,8 @@
     export default {
         data: () => ({
           checkedProducts : [],
-          sizeDialog      : 'large'
+          sizeDialog      : 'large',
+          iconCancel      : require("../../assets/images/cancel.svg")
         }),
         computed: {
           ...mapGetters({
@@ -60,6 +70,17 @@
             }else{
               return true
             }
+          }
+        },
+        watch: {
+          // whenever layer changes, this function will run
+          isVisible: function (newState, oldState) {
+            if(newState){
+              this.$refs['productdialog'].open();
+            }else{
+              this.$refs['productdialog'].close();
+            }
+            console.log('Is Visible Modal Product:'+newState)
           }
         },
         methods: {
@@ -117,8 +138,27 @@
 </script>
 
 <style>
+.dialog-header{
+  justify-content: space-around;
+  align-items: center;
+  display: flex;
+}
+
+.dialog-header .message{
+  margin: 1rem 0 1rem 1.5rem;
+}
+.dialog-header .close{
+  margin: 0 1rem 1rem 0;
+}
+.dialog-header .close .close-image{
+  margin-top: 1rem;
+  width: 2rem;
+  height: 2rem;
+}
+
 .product-dialog{
     overflow: visible;
+    z-index: 10;
 }
 
 .scrollable{
@@ -128,7 +168,7 @@
 }
 
 .action-bar{
-  margin-top: -1.5rem;
+
 }
 
 .table{
@@ -235,6 +275,12 @@ label:hover:before {
 }
 
 @media only screen and (max-width: 450px) {
+  .dialog-header .close .close-image{
+    margin: 1rem 1rem 1rem 0;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+
   img {
     max-width:2rem !important;
     max-height:7rem !important;

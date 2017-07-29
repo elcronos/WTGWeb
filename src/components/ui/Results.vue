@@ -21,6 +21,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+
 export default {
   data: () => ({
     iconCancel : require("../../assets/images/cancel.svg"),
