@@ -80,7 +80,6 @@
             }else{
               this.$refs['productdialog'].close();
             }
-            console.log('Is Visible Modal Product:'+newState)
           }
         },
         methods: {

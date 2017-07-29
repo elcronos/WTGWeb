@@ -1,5 +1,11 @@
 <template>
   <div class="searcher-content">
+    <md-dialog md-open-from="#alert1" md-close-to="#alert1" ref="alert1">
+      <md-dialog-title>{{ $t('notify.notfound') }}</md-dialog-title>
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="closeAlert()">Ok</md-button>
+      </md-dialog-actions>
+    </md-dialog>
     <div :class="searchStyle">
       <md-input-container class="searcher-input" md-inline>
         <label>{{ $t('searcher.placeholder') }}</label>
@@ -14,6 +20,7 @@
 <script>
 import axios from 'axios';
 import Products from './Products.vue';
+import { Message } from 'element-ui';
 import { mapActions, mapGetters } from 'vuex'
 import { SERVER } from '../../data/data.js'
 
@@ -38,13 +45,23 @@ export default {
       'openDialog',
       'setData'
     ]),
+    closeAlert(){
+      this.$refs['alert1'].close();
+    },
+    openAlert(){
+      this.$refs['alert1'].open();
+    },
     handleSearchInput(value) {
       console.log('Search...'+value)
       var _this = this
         axios.get(`http://${SERVER}:3000/products?name=${value}`)
         .then(response => {
           _this.setData(response.data)
-          _this.openDialog()
+          if(response.statusText === 'No Content'){
+            _this.openAlert()
+          }else{
+            _this.openDialog()
+          }
         })
         .catch(e => {
           console.log("Ooppss.."+e)
