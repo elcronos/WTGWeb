@@ -12,9 +12,23 @@ import VueNotifications from 'vue-notifications'
 import router from './router/index.js'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
+import { SERVER } from './data/data.js'
 import { translationsEs, translationsEn } from './translations/translations.js'
 import VueAnalytics from 'vue-analytics'
+import VueResource from 'vue-resource'
+import VueAuthenticate from 'vue-authenticate'
 
+Vue.use(VueResource)
+Vue.use(VueAuthenticate, {
+  baseUrl: `http://${SERVER}:3000`, // Your API domain
+
+  providers: {
+    facebook: {
+      clientId: '',
+      redirectUri: `http://${SERVER}:8080/auth/callback` // Your client app URL
+    }
+  }
+})
 Vue.use(VueAnalytics, {
   id: 'UA-103588886-1',
   router

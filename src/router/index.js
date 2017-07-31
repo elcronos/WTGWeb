@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Login from '../components/pages/Login.vue'
 import MyMain from '../components/pages/MyMain.vue'
 import ContactUs from '../components/pages/ContactUs.vue'
 import Contribute from '../components/pages/Contribute.vue'
@@ -12,6 +13,11 @@ export default new Router({
       path: '/',
       name: 'Main',
       component: MyMain
+    },
+    {
+      path: '/Login',
+      name: 'Login',
+      component: Login
     },
     {
       path: '/ContactUs',
