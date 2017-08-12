@@ -11,7 +11,8 @@ const state = {
   products: [],
   layer: 'default',
   result: {features:[], visible:false, product: ''},
-  data: []
+  data: [],
+  isAuthenticated: false
 }
 
 // mutations are operations that actually mutates the state.
@@ -46,6 +47,9 @@ const mutations = {
   },
   setCheckedMenu(state, checked){
     state.checked = checked
+  },
+  isAuthenticated (state, isAuthenticated) {
+    state.isAuthenticated = isAuthenticated
   }
 }
 
@@ -60,7 +64,10 @@ const actions = {
   setLayerProduct : ({ commit }, layer) => commit('setLayerProduct', layer),
   setResult       : ({ commit }, result) => commit('setResult', result),
   setData         : ({ commit }, data) => commit('setData', data),
-  setCheckedMenu  : ({ commit }, checked) => commit('setCheckedMenu', checked)
+  setCheckedMenu  : ({ commit }, checked) => commit('setCheckedMenu', checked),
+  isAuthenticated : ({ commit }, payload) => commit('isAuthenticated', payload),
+  logout          : ({ commit }) => commit('isAuthenticated', false)
+
 }
 
 // getters are functions
@@ -70,7 +77,8 @@ const getters = {
   layer             : state => state.layer,
   result            : state => state.result,
   data              : state => state.data,
-  checked           : state => state.checked
+  checked           : state => state.checked,
+  isAuthenticated   : state => state.isAuthenticated
 }
 
 // A Vuex instance is created by combining the state, mutations, actions,

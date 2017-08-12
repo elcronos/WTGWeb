@@ -20,12 +20,11 @@ import VueAuthenticate from 'vue-authenticate'
 
 Vue.use(VueResource)
 Vue.use(VueAuthenticate, {
-  baseUrl: `http://${SERVER}:3000`, // Your API domain
-
+  baseUrl: `http://${SERVER}:8888`, // Your API domain
   providers: {
     facebook: {
-      clientId: '',
-      redirectUri: `http://${SERVER}:8080/auth/callback` // Your client app URL
+      clientId: '1889046694678887',
+      redirectUri: `http://${SERVER}:8010/` // Your client app URL
     }
   }
 })

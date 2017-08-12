@@ -30,6 +30,8 @@ export const translationsEn = {
   "message.message.detail"      : "Please provide more information",
   "message.message"             : "Message",
   "message.send"                : "SEND",
+  "message.user"                : "User",
+  "message.password"            : "Password",
 
 }
 
@@ -64,5 +66,7 @@ export const translationsEs = {
   "message.address"             : "Dirección",
   "message.message"             : "Mensaje",
   "message.message.detail"      : "Por favor de mas detalles acerca de los productos. Por ejemplo, precio, marca, etc.",
-  "message.send"                : "ENVIAR"
+  "message.send"                : "ENVIAR",
+  "message.user"                : "Usuario",
+  "message.password"            : "Contraseña",
 }

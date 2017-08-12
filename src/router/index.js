@@ -4,6 +4,7 @@ import Login from '../components/pages/Login.vue'
 import MyMain from '../components/pages/MyMain.vue'
 import ContactUs from '../components/pages/ContactUs.vue'
 import Contribute from '../components/pages/Contribute.vue'
+import Profile from '../components/pages/Profile.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/Contribute',
       name: 'Contribute',
       component: Contribute
+    },
+    {
+      path: '/Profile',
+      name: 'Profile',
+      component: Profile
     }
   ]
 })
