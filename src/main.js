@@ -19,15 +19,6 @@ import VueResource from 'vue-resource'
 import VueAuthenticate from 'vue-authenticate'
 
 Vue.use(VueResource)
-Vue.use(VueAuthenticate, {
-  baseUrl: `http://${SERVER}:8888`, // Your API domain
-  providers: {
-    facebook: {
-      clientId: '1889046694678887',
-      redirectUri: `http://${SERVER}:8010/` // Your client app URL
-    }
-  }
-})
 Vue.use(VueAnalytics, {
   id: 'UA-103588886-1',
   router

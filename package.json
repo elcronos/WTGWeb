@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "element-ui": "^1.1.2",
+    "firebase": "^4.2.0",
     "jwt-decode": "^2.2.0",
     "mapbox-gl": "^0.38.0",
     "mapbox-gl-vue": "^1.4.0",

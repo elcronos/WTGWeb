@@ -5,16 +5,16 @@
         <div class="logo">WhereToGet</div>
         <md-input-container class="contactus-input">
           <label>{{ $t('message.user') }}</label>
-          <md-input data-vv-delay="1000" v-model="user.name" v-validate="'required'" :class="{'form-input': true, 'form-input is-danger': errors.has('name') }" name="name"></md-input>
+          <md-input data-vv-delay="1000" v-model="user.email" v-validate="'required'" :class="{'form-input': true, 'form-input is-danger': errors.has('name') }" name="name"></md-input>
         </md-input-container>
         <md-input-container class="contactus-input">
           <label>{{ $t('message.password') }}</label>
           <md-input data-vv-delay="1000" v-model="user.password" v-validate="'required|password'" :class="{'form-input': true, 'form-input is-danger': errors.has('password') }" name="password"></md-input>
         </md-input-container>
-        <button @click="login(user.name,user.password)">Login</button>
+        <button @click="login(user.email,user.password)">Login</button>
         <button @click="register()">Register</button>
-        <button @click="authenticate('facebook')">auth Facebook</button>
-        <button @click="authenticate('google')">auth Google</button>
+        <button @click="signInOAuth('facebook')">auth Facebook</button>
+        <button @click="signInOAuth('google')">auth Google</button>
       </div>
     </div>
   </div>
@@ -22,42 +22,87 @@
 
 <script>
   import { mapActions } from 'vuex'
-  import sha512 from 'sha512'
+
+  import sha512 from 'sha512' 
+  import { firebase , Firebase } from '../../db.js'
 
   export default {
     data: () => ({
-      user : {name : '', password : ''}
+      user : {email : '', password : ''}
     }),
     methods: {
       ...mapActions({
-        loginStore : 'isAuthenticated'
+        setUserProfile: 'setUserProfile'
       }),
-      login: function (username,password) {
-        password = sha512(password).toString('hex')
-        console.log(`User:${username} Password:${password}`)
-        this.$auth.login({ username, password }).then(function (response, error) {
-          // Execute application logic after successful login
-          console.log('Token:'+response.data.token)
-          console.log('Login')
-          this.loginStore(true)
-          this.$router.push('/Profile')
-        })
+      login: function (email,password) {
+        console.log(`User:${email} Password:${password}`)
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+          let user = firebase.auth().currentUser;
+          if(user){
+            console.log('User:'+JSON.stringify(user));
+          }
+        }).catch(function(error) {
+          // Handle Errors here.
+          let errorCode = error.code;
+          if(errorCode){
+            console.log(errorCode);
+          }
+        });
       },
       register: function () {
-        this.$auth.register({ name, email, password }).then(function () {
-          // Execute application logic after successful registration
-        })
+        console.log('register');
       },
-      authenticate: function (provider) {
-        this.$auth.authenticate(provider).then(function () {
-          // Execute application logic after successful social authentication
-        })
+      signInOAuth: function (provider) {
+        const _this = this
+        if(provider === 'facebook'){
+          const provider = new Firebase.auth.FacebookAuthProvider();
+
+          provider.addScope('email');
+          provider.addScope('public_profile');
+          provider.addScope('user_friends');
+          
+          //Try Linking
+          /*
+            firebase.auth().currentUser.linkWithPopup(provider).then(function(result) {
+              // Accounts successfully linked.
+              var credential = result.credential;
+              var user = result.user;
+              console.log('Account successfully linked');
+              console.log(`Credential Token: ${result.credential.accessToken}`)
+            }).catch(function(error) {
+              // Handle Errors here.
+              console.log('Error linking');
+            });
+          */
+          firebase.auth().signInWithPopup(provider).then(function(authData) {
+            console.log(authData);
+            console.log(`Credential Token: ${authData.credential.accessToken}`)
+            let user = {
+              accessToken: authData.credential.accessToken,
+              refreshToken: authData.user.refreshToken,
+              profile: authData.additionalUserInfo.profile
+            };
+            console.log(user)
+            //Vuex
+            _this.setUserProfile(user);
+
+          }).catch(function(error) {
+            console.log('Error:'+error);
+          });
+        } 
+        /*else if(provider === 'google'){
+          let provider = new firebase.auth.GoogleAuthProvider();
+        }*/
       }
     }
   }
 </script>
 
 <style scoped>
+
+  body{
+    color: #fff;
+  }
   @font-face {
     font-family: logo;
     src: url('../../assets/fonts/Note_this.ttf');
@@ -97,6 +142,7 @@
     font-family: "logo";
     font-size: 3rem;
   }
+
   .md-input-container label{
     color: #fff;
   }
@@ -109,5 +155,17 @@
     color: #3283ca !important;
   }
 
+  .md-input.form-input{
+    background-color: #3283ca !important;
+    opacity: 0.4;
+  }
+
+  .md-input-container.md-has-value input, .md-input-container.md-has-value textarea{
+    color: #fff !important;
+  }
+
+  .md-theme-default.md-has-value.md-input-focused input{
+    color: #fff;
+  }
 
 </style>
